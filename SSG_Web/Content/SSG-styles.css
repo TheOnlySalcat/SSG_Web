@@ -1,0 +1,25 @@
+﻿
+.SSG-button {
+    font-family: Arial;
+    float:right;
+    right: 0px;
+    width: 100px;
+
+}
+.SSG-label {
+    font-family: Arial;
+    
+}
+.SSG-webform {
+    font-family: Arial;
+    margin:auto;
+    width: 300px;
+}
+.SSG-textbox {
+    width:290px;
+}
+.SSG-listbox {
+    font-family: Arial;
+    margin: auto;
+    width: 300px;
+}
