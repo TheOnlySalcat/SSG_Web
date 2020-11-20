@@ -7,7 +7,10 @@
     <title>Bindle</title>
     <link href="~/Content/SSG-styles.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body class="SSG-body">
+    <header class="SSG-titlebar">
+        <h1 class="SSG-header">LOTR Enthusiast App</h1>
+    </header>
     <form id="form1" runat="server">
         <div class="SSG-webform">
             <asp:Label ID="lblBookName" runat="server" CssClass ="SSG-label">Book</asp:Label>
@@ -22,8 +25,13 @@
             <br />
             <br />
             <asp:Label ID="lblChapters" runat="server" CssClass ="SSG-label">Chapters</asp:Label>
-            <asp:ListBox ID="lbChaptersResult" runat="server" CssClass="SSG-listbox"></asp:ListBox>
+            <asp:ListBox ID="lbChaptersResult" runat="server" CssClass="SSG-listbox SSG-listboxtall"></asp:ListBox>
         </div>
     </form>
+    <footer class="SSG-footermain">
+        <p>
+            Developed by <a href="mailto:notputtingmyrealemailhere@gmail.com">Scott Nicol</a> November 2020
+        </p>
+    </footer>
 </body>
 </html>

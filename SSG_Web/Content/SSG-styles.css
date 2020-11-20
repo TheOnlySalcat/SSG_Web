@@ -1,25 +1,57 @@
 ﻿
 .SSG-button {
-    font-family: Arial;
-    float:right;
+    font-family: Calibri;
+    float: right;
     right: 0px;
     width: 100px;
-
+    margin-top:5px;
 }
 .SSG-label {
-    font-family: Arial;
-    
+    font-family: Calibri;
+    color: navy;
+    font-weight: bold;
 }
 .SSG-webform {
-    font-family: Arial;
-    margin:auto;
+    font-family: Calibri;
+    margin: auto;
     width: 300px;
 }
 .SSG-textbox {
     width:290px;
 }
 .SSG-listbox {
-    font-family: Arial;
+    font-family: Calibri;
     margin: auto;
     width: 300px;
 }
+.SSG-listboxtall {
+    height: 200px;
+}
+.SSG-titlebar {
+    font-family: Calibri;
+    color: white;
+    background-color: navy;
+}
+.SSG-header {
+    font-family: Calibri;
+    text-align: center;
+    margin:auto;
+}
+
+.SSG-footermain {
+    font-family: Calibri;
+    text-align: center;
+    background-color: lightsteelblue;
+    color:black;
+}
+.SSG-footersub {
+    font-family: Calibri;
+    text-align: center;
+    background-color: lightsteelblue;
+    color: black;
+}
+
+.SSG-body {
+    background-color: #e6f2ff;
+}
+
