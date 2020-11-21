@@ -1,10 +1,11 @@
 ﻿
 .SSG-button {
     font-family: Calibri;
-    float: right;
+    float: left;
     right: 0px;
     width: 100px;
-    margin-top:5px;
+    
+
 }
 .SSG-label {
     font-family: Calibri;
@@ -13,8 +14,7 @@
 }
 .SSG-webform {
     font-family: Calibri;
-    margin: auto;
-    width: 300px;
+    
 }
 .SSG-textbox {
     width:290px;
@@ -31,6 +31,7 @@
     font-family: Calibri;
     color: white;
     background-color: navy;
+    margin-right: 10px;
 }
 .SSG-header {
     font-family: Calibri;
@@ -43,6 +44,7 @@
     text-align: center;
     background-color: lightsteelblue;
     color:black;
+    margin-right:10px;
 }
 .SSG-footersub {
     font-family: Calibri;
@@ -53,5 +55,13 @@
 
 .SSG-body {
     background-color: #e6f2ff;
+}
+
+.SSG-row {
+    display: flex;
+}
+
+.SSG-column {
+    flex: 50%;
 }
 
