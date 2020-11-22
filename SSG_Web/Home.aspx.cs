@@ -15,6 +15,9 @@ namespace SSG_Web
         public string apiBaseUrl = "https://the-one-api.dev/v2";
         private string apiToken = "x4IHDwrEg5b11yXtRQxj";
 
+        //Cache for characters to reduce API queries
+        public List<character> cachedCharacters = new List<character>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -90,6 +93,56 @@ namespace SSG_Web
                     item.Value = c._id;
                     lbChaptersResult.Items.Add(item);
                 }
+            }
+        }
+
+        protected void lbMoviesResult_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbMoviesResult.SelectedItem != null)
+            {
+
+
+                //Call API - Get quotes for Movie
+                var client2 = new RestClient($"{apiBaseUrl}/quote?movie={lbMoviesResult.SelectedValue}");
+                client2.Timeout = -1;
+                var request2 = new RestRequest(Method.GET);
+                request2.AddHeader("Authorization", $"Bearer {apiToken}");
+                IRestResponse response2 = client2.Execute(request2);
+
+                quotes quotesList = JsonConvert.DeserializeObject<quotes>(response2.Content);
+
+                //Put results into listbox
+                lbQuotesResult.Items.Clear();
+                txtCharactersResult.Text = "";
+
+                foreach (quote q in quotesList.docs)
+                {
+                    ListItem item = new ListItem();
+                    item.Text = q.dialog;
+                    item.Value = $"{q._id}|{q.character}";
+                    lbQuotesResult.Items.Add(item);
+                }
+            }
+        }
+
+        protected void lbQuotesResult_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (lbQuotesResult.SelectedItem != null)
+            {
+                //Call API - Get character of quote
+                var client = new RestClient($"{apiBaseUrl}/character?_id={lbQuotesResult.SelectedValue.Split('|')[1]}");
+                client.Timeout = -1;
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("Authorization", $"Bearer {apiToken}");
+                IRestResponse response = client.Execute(request);
+
+                characters charactersList = JsonConvert.DeserializeObject<characters>(response.Content);
+
+                //Put results into listbox
+                txtCharactersResult.Text = "";
+
+                txtCharactersResult.Text = charactersList.docs[0].name;
             }
         }
 
@@ -198,17 +251,40 @@ namespace SSG_Web
 
         protected void lbCharactersResult_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            //no action
         }
 
-        protected void lbMoviesResult_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnCacheCharacters_Click(object sender, EventArgs e)
         {
-            if (lbMoviesResult.SelectedItem != null)
-            {
-                
+            //Call API - Get character
+            var client = new RestClient($"{apiBaseUrl}/character?name=/{txtSearchCharacter.Text}/i");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("Authorization", $"Bearer {apiToken}");
+            IRestResponse response = client.Execute(request);
 
+            characters charactersList = JsonConvert.DeserializeObject<characters>(response.Content);
+
+            //Put results into listbox
+            lbCachedCharacters.Items.Clear();
+
+            foreach (character c in charactersList.docs)
+            {
+                cachedCharacters.Add(c);
+
+                ListItem item = new ListItem();
+                item.Value = c._id;
+                item.Text = c.name;
+                lbCachedCharacters.Items.Add(item);
+            }
+        }
+
+        protected void lbCachedCharacters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbCachedCharacters.SelectedItem != null)
+            {
                 //Call API - Get quotes for Movie
-                var client2 = new RestClient($"{apiBaseUrl}/quote?movie={lbMoviesResult.SelectedValue}");
+                var client2 = new RestClient($"{apiBaseUrl}/quote?character={lbCachedCharacters.SelectedValue}");
                 client2.Timeout = -1;
                 var request2 = new RestRequest(Method.GET);
                 request2.AddHeader("Authorization", $"Bearer {apiToken}");
@@ -218,7 +294,7 @@ namespace SSG_Web
 
                 //Put results into listbox
                 lbQuotesResult.Items.Clear();
-                txtCharactersResult.Text = "";
+                txtCharactersResult.Text = lbCachedCharacters.SelectedItem.Text;
 
                 foreach (quote q in quotesList.docs)
                 {
@@ -227,27 +303,6 @@ namespace SSG_Web
                     item.Value = $"{q._id}|{q.character}";
                     lbQuotesResult.Items.Add(item);
                 }
-            }
-        }
-
-        protected void lbQuotesResult_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (lbQuotesResult.SelectedItem != null)
-            {
-                //Call API - Get character of quote
-                var client = new RestClient($"{apiBaseUrl}/character?_id={lbQuotesResult.SelectedValue.Split('|')[1]}");
-                client.Timeout = -1;
-                var request = new RestRequest(Method.GET);
-                request.AddHeader("Authorization", $"Bearer {apiToken}");
-                IRestResponse response = client.Execute(request);
-
-                characters charactersList = JsonConvert.DeserializeObject<characters>(response.Content);
-
-                //Put results into listbox
-                txtCharactersResult.Text = "";
-
-                txtCharactersResult.Text = charactersList.docs[0].name;
             }
         }
     }

@@ -4,7 +4,7 @@
     float: left;
     right: 0px;
     width: 100px;
-    
+    margin-top:5px;
 
 }
 .SSG-label {
@@ -63,5 +63,12 @@
 
 .SSG-column {
     flex: 50%;
+}
+
+.SSG-titlecolumn1 {
+    flex: 67%;
+}
+.SSG-titlecolumn2 {
+    flex: 33%;
 }
 
